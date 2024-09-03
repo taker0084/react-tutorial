@@ -1,18 +1,32 @@
-import { useState } from 'react';
-import { List } from './List'; //忘れない
+import React from 'react';
+import { List } from './List';
+import { Form } from './Form';
 
-function App() {
-  const[description, setDiscription] = useState('クリック前の表示');    //descriptionは変更前、setDiscriptionは変更後　useStateの引数は初期値
-  const changeDescription = () => {
-    setDiscription('クリック後の表示です');
+class App extends React.Component {         //クラスコンポーネント
+  constructor(props) {                      //コンストラクタ
+    super(props);
+    this.state = {
+        Tab: 'list'
+    };
   }
-  return (
-    <div>
-      {description}
-      <List title = "取り扱い言語一覧"/>                        {/*親コンポーネント(App.js)から子コンポーネント(List.js)にprops(今回でいうtitle)を渡す*/}
-      <button onClick={changeDescription}>クリック</button>
-    </div>
-  );
+  
+  render() {
+    const {Tab} = this.state;
+    return (
+      <div>
+        <header>
+          <ul>
+            <li onClick={()=>this.setState({Tab: 'list'})}>リスト</li>
+            <li onClick={()=>this.setState({Tab: 'form'})}>フォーム</li>
+          </ul>
+        </header>
+        <hr />
+        {
+          Tab === 'list' ? <List /> : <Form />
+        }
+      </div>
+    );
+  }
 }
 
 export default App;
