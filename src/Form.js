@@ -3,28 +3,28 @@ import styled from 'styled-components';
 import Button from './components/Button';
 
 const Container = styled.div`
-  padding: 12px 64px ;
+    padding: 12px 64px ;
 `;
 
 const Label = styled.label`
-  display: flex;
-  color: #757575;
-  font-size: 14px;
-  font-weight: bold;
+    display: flex;
+    color: #757575;
+    font-size: 14px;
+    font-weight: bold;
 `;
 
 const Input = styled.input`
-  border-radius: 3px;
-  border: solid 1px black;
-  padding: 4px 8px;
+    border-radius: 3px;
+    border: solid 1px black;
+    padding: 4px 8px;
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 24px;
+    margin-top: 24px;
 `;
 
 const FormButton = styled(Button)`
-  width: 120px;
+    width: 120px;
 `
 export class Form extends React.Component {
     constructor(props){         //テキスト(登録する言語)を管理するstate
