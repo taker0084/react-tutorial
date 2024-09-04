@@ -1,24 +1,43 @@
 import React from 'react';
 import { List } from './List';
 import { Form } from './Form';
-import { LANGUAGES } from './const/languages';
+import { getLanguages,LANGUAGES } from './const/languages';
 
 class App extends React.Component {         //クラスコンポーネント
   constructor(props) {                      //コンストラクタ
     super(props);
     this.state = {
       Tab: 'list',
-      langs: LANGUAGES
+      langs: []
     };
   }
-  addLang = (lang) => {
+  componentDidMount(){
+    console.log('App.js:componentDidMount');
+    this.fetchLangages();
+  }
+  async fetchLangages() {
+    const langs = await getLanguages();
+    this.setState({langs});
+  }
+  addLang (lang) {
     this.setState({
       Tab: 'list',
       langs: [...this.state.langs, lang]
     });
   }
+  //useEffect(()=>{                          ファンクションコンポーネントの場合
+    //  console.log('App.js:useEffect');     いつ動くのかを確認できる
+    //  getLanguages().then((langs)=>this.setState({langs}))
+    //  fetchLangages();
+    //},[langs])
+
+    //const fetchLangages = async () => {
+    //  const languages = await getLanguages();
+    //  this.setState({langs: languages});
+    //}
   render() {
     const {Tab,langs} = this.state;
+    
     return (
       <div>
         <header>
