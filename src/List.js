@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  padding: 12px 64px 0;
+    padding: 12px 64px 0;
 `;
 
 const ListItem = styled.div`
-  padding: 8px 16px;
-  &:nth-child(n+2){
-    border-top: 1px solid #D9DBDE;
-  }
+    padding: 8px 16px;
+    &:nth-child(n+2){
+        border-top: 1px solid #D9DBDE;
+    }
 `;
 //useEffect(()=>{
 //  console.log('List.js:useEffect');     いつ動くのかを確認できる
