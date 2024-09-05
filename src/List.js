@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TabBodyContainer } from './components/tab-body-container';
 
-const Container = styled.div`
-    padding: 12px 64px 0;
-`;
 
 const ListItem = styled.div`
     padding: 8px 16px;
@@ -24,13 +22,13 @@ export class List extends React.Component {   //親コンポーネントから�
     render() {
         const {langs} = this.props;
         return (                         //return内に子コンポーネントの中身を記述
-            <Container>
+            <TabBodyContainer title = "取り扱い言語リスト">
                 {
                     langs.map((lang,index) => {                {/*mapメソッドで配列をhtmlに変換,keyは一意の値を指定、必ず明記*/}
                         return <ListItem key={index}>{lang}</ListItem>       
                     })
                 }
-            </Container>
+            </TabBodyContainer>
         )
     }
 }

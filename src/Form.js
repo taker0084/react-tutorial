@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from './components/Button';
-
-const Container = styled.div`
-    padding: 12px 64px ;
-`;
+import { TabBodyContainer } from './components/tab-body-container';
+import { FormModal } from './FormModal';
 
 const Label = styled.label`
     display: flex;
@@ -30,19 +28,20 @@ export class Form extends React.Component {
     constructor(props){         //テキスト(登録する言語)を管理するstate
         super(props);
         this.state = {
-            text: ''
+            text: '',
+            showModal: false
         }
     }
     submitForm = (event) => {
         event.preventDefault();
-        this.props.onAddLang(this.state.text);   //親コンポーネントの関数を呼び出す
+        this.setState({showModal:true});
     }
     render() {
-        const {text} = this.state;
+        const {text,showModal} = this.state;
+        const {onAddLang} = this.props;
         return (
             
-            <Container>
-                <h4>新しい言語の追加</h4>
+            <TabBodyContainer title = "新しい言語の追加">
                 <form onSubmit={(e)=>this.submitForm(e)}>
                     <div>
                         <Label>言語</Label>
@@ -52,7 +51,11 @@ export class Form extends React.Component {
                         <FormButton>追加</FormButton>      
                     </ButtonContainer>
                 </form>
-            </Container>
+                {
+                    showModal &&
+                    <FormModal confirm={()=>onAddLang(text)} cancel={()=>this.setState({showModal:false})}/>
+                }
+            </TabBodyContainer>
     )
     }
 }

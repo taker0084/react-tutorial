@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';                  //styled-cssによるcss表現
 import { List } from './List';
 import { Form } from './Form';
-import { getLanguages,LANGUAGES } from './const/languages';
+import { getLanguages } from './const/languages';
+import { withLoading } from './hoc/withLoading';
+import { Modal } from './components/modal';
 
 const Header = styled.header`
   display: flex;
@@ -27,17 +29,10 @@ class App extends React.Component {         //クラスコンポーネント
     super(props);
     this.state = {
       Tab: 'list',
-      langs: []
+      langs: props.data
     };
   }
-  componentDidMount(){
-    console.log('App.js:componentDidMount');
-    this.fetchLangages();
-  }
-  async fetchLangages() {
-    const langs = await getLanguages();
-    this.setState({langs});
-  }
+  
   addLang (lang) {
     this.setState({
       Tab: 'list',
@@ -73,4 +68,4 @@ class App extends React.Component {         //クラスコンポーネント
   }
 }
 
-export default App;
+export default withLoading(App,getLanguages);
