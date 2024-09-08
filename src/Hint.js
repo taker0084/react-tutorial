@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const HintContainer=styled.div`
@@ -27,31 +27,24 @@ const PopupContainer = styled.div`
     padding: 8px;
     width: 140px;
 `
-export class Hint extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            ShowPopup: false
-        }
-        this.ref = React.createRef();
-    }
-    componentDidUpdate(){
-        if(this.ref.current) this.ref.current.focus();
-    }
-    render(){
-        const {ShowPopup} = this.state;
-        return(
-            <HintContainer>
-                <HintInner onClick={()=>this.setState({ShowPopup:true})}>
-                    ?
-                </HintInner>
-                {
-                    ShowPopup &&
-                    <PopupContainer ref={this.ref} onBlur={()=>this.setState({ShowPopup:false})} tabIndex={0}>
+export const Hint = () =>{
+    const [ShowPopup, setShowPopup] = useState(false);
+    const ref = useRef(null);
+    useEffect(()=>{
+        if(ref.current) ref.current.focus();
+    })
+    return(
+        <HintContainer>
+            <HintInner onClick={()=>setShowPopup(true)}>
+                ?
+            </HintInner>
+            {
+                ShowPopup &&(
+                    <PopupContainer ref={ref} onBlur={()=>setShowPopup(false)} tabIndex={0}>
                         言語の名前です
                     </PopupContainer>
-                }
-            </HintContainer>
-        )
-    }
+                )
+            }
+        </HintContainer>
+    )
 }

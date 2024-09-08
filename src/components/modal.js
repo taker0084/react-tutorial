@@ -1,5 +1,4 @@
 import ReactDom from 'react-dom';
-import React from 'react';
 import styled from 'styled-components';
 
 const modalRoot = document.getElementById("modal-root");
@@ -15,13 +14,11 @@ const Container = styled.div`
     width: 100%;
     background-color : rgba(0, 0, 0, .5);
 `
-export class Modal extends React.Component{
-    render(){
-        return ReactDom.createPortal(
-            <Container>
-                { this.props.children}
-            </Container>,
-            modalRoot
-        )
-    }
+export const Modal = (props) => {
+    return ReactDom.createPortal(
+        <Container>
+            { props.children}
+        </Container>,
+        modalRoot
+    )
 }

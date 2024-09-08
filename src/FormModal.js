@@ -1,6 +1,6 @@
-import React from "react"
+import { useContext } from "react"
 import styled from "styled-components"
-import {Modal} from "./components/modal"
+import { Modal } from "./components/modal"
 import Button from "./components/Button"
 import { ThemeContext, THEMES } from "./contexts/ThemeContext"
 
@@ -17,21 +17,17 @@ const ButtonWrapper = styled.div`
     justify-content: space-between;
     mergin-top: 24px;
 `
-export class FormModal extends React.Component {
-    static contextType = ThemeContext;
-    render(){
-        const{cancel,confirm} = this.props;
-        const [theme] = this.context;
-        return(
-            <Modal>
-                <Container theme = {theme}>
-                    <div>本当に作成しますか?</div>
-                    <ButtonWrapper>
-                        <Button onClick={cancel}>Cancel</Button>
-                        <Button onClick={confirm}>OK</Button>
-                    </ButtonWrapper>
-                </Container>
-            </Modal>
-        )
-    }
+export const FormModal = ({cancel,confirm}) => {
+    const[theme] = useContext(ThemeContext);
+    return(
+        <Modal>
+            <Container theme = {theme}>
+                <div>本当に作成しますか?</div>
+                <ButtonWrapper>
+                    <Button onClick={cancel}>Cancel</Button>
+                    <Button onClick={confirm}>OK</Button>
+                </ButtonWrapper>
+            </Container>
+        </Modal>
+    )
 }
