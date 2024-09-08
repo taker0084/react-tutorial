@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Button from "./components/Button";
 import { ThemeContext } from "./contexts/ThemeContext";
@@ -21,23 +21,19 @@ const HeaderLi = styled.li`
   border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none'};
 `;
 const HeaderButton = styled(Button)`
-    padding: 0;
-    mergin-bottom: 4px;
+  padding: 0;
+  mergin-bottom: 4px;
 `
 
-export class Header extends React.Component{
-    static contextType = ThemeContext;
-    render(){
-        const {Tab,setTab} = this.props;
-        const [,toggleTheme] = this.context;
-        return(
-            <Container>
-                <HeaderUl>
-                    <HeaderLi focused={Tab === 'list'} onClick={()=>setTab('list')}>リスト</HeaderLi>
-                    <HeaderLi focused={Tab === 'form'} onClick={()=>setTab('form')}>フォーム</HeaderLi>
-                </HeaderUl>
-                <HeaderButton onClick={toggleTheme}>テーマ変更</HeaderButton>
-            </Container>
-        )
-    }
+export const Header =({Tab,setTab})=>{
+  const[,toggleTheme] = useContext(ThemeContext);
+  return(
+    <Container>
+        <HeaderUl>
+            <HeaderLi focused={Tab === 'list'} onClick={()=>setTab('list')}>リスト</HeaderLi>
+            <HeaderLi focused={Tab === 'form'} onClick={()=>setTab('form')}>フォーム</HeaderLi>
+        </HeaderUl>
+        <HeaderButton onClick={toggleTheme}>テーマ変更</HeaderButton>
+    </Container>
+  )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import Button from './components/Button';
 import { TabBodyContainer } from './components/tab-body-container';
@@ -25,39 +25,31 @@ const ButtonContainer = styled.div`
 const FormButton = styled(Button)`
     width: 120px;
 `
-export class Form extends React.Component {
-    constructor(props){         //テキスト(登録する言語)を管理するstate
-        super(props);
-        this.state = {
-            text: '',
-            showModal: false
-        }
+export const Form =({onAddLang}) => {
+    const [text, setText] = useState('');
+    const [showModal,setShowModal] = useState(false);
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        setShowModal(true);
     }
-    submitForm = (event) => {
-        event.preventDefault();
-        this.setState({showModal:true});
-    }
-    render() {
-        const {text,showModal} = this.state;
-        const {onAddLang} = this.props;
-        return (
+    return (
             
-            <TabBodyContainer title = "新しい言語の追加">
-                <form onSubmit={(e)=>this.submitForm(e)}>
-                    <div>
-                        <Label>言語</Label>
-                        <Input type="text" value={text} onChange={(e) => this.setState({text: e.target.value})}/>
-                        <Hint />
-                    </div>
-                    <ButtonContainer>   
-                        <FormButton>追加</FormButton>      
-                    </ButtonContainer>
-                </form>
-                {
-                    showModal &&
-                    <FormModal confirm={()=>onAddLang(text)} cancel={()=>this.setState({showModal:false})}/>
-                }
-            </TabBodyContainer>
+        <TabBodyContainer title = "新しい言語の追加">
+            <form onSubmit={submitForm}>
+                <div>
+                    <Label>言語</Label>
+                    <Input type="text" value={text} onChange={(e)=>setText(e.target.value)}/>
+                    <Hint />
+                </div>
+                <ButtonContainer>   
+                    <FormButton>追加</FormButton>      
+                </ButtonContainer>
+            </form>
+            {
+                showModal &&
+                <FormModal confirm={()=>onAddLang(text)} cancel={()=>setShowModal(false)}/>
+            }
+        </TabBodyContainer>
     )
-    }
 }
